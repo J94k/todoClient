@@ -1,3 +1,4 @@
+import './index.css'
 import { Task } from '../../store/types'
 
 export default function TaskItem({ task }: { task: Task }) {
@@ -6,8 +7,8 @@ export default function TaskItem({ task }: { task: Task }) {
   return (
     <div className={`task-item ${completed ? 'completed' : ''}`}>
       <p className="task-item__author">
-        <span>{username}</span>
-        <span>{email}</span>
+        <b className="task-item__authors-name">{username}:</b>
+        <span className="task-item__authors-email">{email}</span>
       </p>
       <p className="task-item__description">{description}</p>
     </div>

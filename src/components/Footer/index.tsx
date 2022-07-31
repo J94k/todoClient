@@ -1,3 +1,5 @@
+import './index.css'
+
 export default function Footer() {
   const copyright = `Copyright © ${new Date().getFullYear()} TODO bicycle`
 

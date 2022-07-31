@@ -1,0 +1,22 @@
+.pagination__list {
+  padding: 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  list-style: none;
+}
+
+.pagination__item:not(:last-child) {
+  margin-right: 0.3rem;
+}
+
+.pagination__item button {
+  padding: 0.4rem 0.8rem;
+  font-size: 1.1rem;
+  background-color: transparent;
+  border: 1px solid rgb(215, 215, 215);
+}
+
+.pagination__item button:hover {
+  background-color: rgb(237, 237, 237);
+}

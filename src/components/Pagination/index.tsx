@@ -1,3 +1,5 @@
+import './index.css'
+
 type OnSelect = (page: number) => void
 
 const returnElements = (amount: number, onSelect: OnSelect) => {
@@ -5,7 +7,7 @@ const returnElements = (amount: number, onSelect: OnSelect) => {
 
   for (let n = 1; n <= amount; n++) {
     elements.push(
-      <li key={n}>
+      <li className="pagination__item" key={n}>
         <button onClick={() => onSelect(n)}>{n}</button>
       </li>
     )
@@ -23,7 +25,9 @@ export default function Pagination({
 }) {
   return (
     <div className="pagination">
-      <ul>{returnElements(pagesAmount, onSelect)}</ul>
+      <ul className="pagination__list">
+        {returnElements(pagesAmount, onSelect)}
+      </ul>
     </div>
   )
 }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
+import './index.css'
 import { State } from '../../store/types'
 import SortForm from '../../components/SortForm'
 import TodoForm from '../../components/TodoForm'

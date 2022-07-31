@@ -1,17 +1,19 @@
 import React from 'react'
-import './App.css'
+import './app.css'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import Home from './pages/Home'
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
+    <div className="app">
       <Header />
-      <Home />
+
+      <main className="app__main">
+        <Home />
+      </main>
+
       <Footer />
     </div>
   )
 }
-
-export default App
