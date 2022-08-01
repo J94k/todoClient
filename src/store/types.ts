@@ -6,9 +6,20 @@ export interface Task {
   completed: boolean
 }
 
+export interface TaskList {
+  unsaved: null | Task
+  list: Task[]
+}
+
+export interface Notification {
+  id: number
+  title: string
+  description?: string
+}
+
 export interface State {
   isAdmin: boolean
   sort: { type: string }
-  unsavedTask: null | Task
-  taskList: Task[]
+  tasks: TaskList
+  notifications: Notification[]
 }

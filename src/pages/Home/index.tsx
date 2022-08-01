@@ -13,12 +13,14 @@ const calculatePagesAmount = (listLength: any[]) =>
   listLength.length ? Math.ceil(listLength.length / TASKS_BY_PAGE) : 0
 
 export default function Home() {
-  const taskList = useSelector((state: State) => state.taskList)
-  const [pagesAmount, setPagesAmount] = useState(calculatePagesAmount(taskList))
+  const tasksList = useSelector((state: State) => state.tasks.list)
+  const [pagesAmount, setPagesAmount] = useState(
+    calculatePagesAmount(tasksList)
+  )
 
   useEffect(() => {
-    setPagesAmount(calculatePagesAmount(taskList))
-  }, [taskList])
+    setPagesAmount(calculatePagesAmount(tasksList))
+  }, [tasksList])
 
   const [currentPage, setCurrentPage] = useState(1)
   const [indexOfFirstTask, setIndexOfFirstTask] = useState(1)
@@ -38,11 +40,11 @@ export default function Home() {
 
   useEffect(() => {
     setRenderedTasks(
-      taskList
+      tasksList
         .slice(indexOfFirstTask, indexOfLastTask)
         .map((task) => <TaskItem task={task} key={task.id} />)
     )
-  }, [indexOfFirstTask, indexOfLastTask, taskList])
+  }, [indexOfFirstTask, indexOfLastTask, tasksList])
 
   return (
     <section className="home">

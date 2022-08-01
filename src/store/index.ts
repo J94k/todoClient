@@ -3,7 +3,7 @@ import {
   isAdminReducer,
   taskListReducer,
   sortReducer,
-  unsavedTaskReducer,
+  notificationsReducer,
 } from './reducers'
 import { State } from './types'
 
@@ -11,7 +11,7 @@ export default configureStore<State>({
   reducer: {
     isAdmin: isAdminReducer,
     sort: sortReducer,
-    unsavedTask: unsavedTaskReducer,
-    taskList: taskListReducer,
+    tasks: taskListReducer,
+    notifications: notificationsReducer,
   },
 })
