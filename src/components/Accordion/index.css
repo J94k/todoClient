@@ -1,0 +1,23 @@
+.accordion {
+  padding: 0.4rem 0.8rem;
+}
+
+.accordion__header {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.accordion__arrow {
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-bottom: 2px solid rgb(6, 6, 6);
+  border-left: 2px solid rgb(6, 6, 6);
+  transform: rotateZ(-45deg);
+}
+
+.accordion__arrow.opened {
+  transform: rotateZ(135deg);
+}

@@ -6,10 +6,10 @@ export default function TaskItem({ task }: { task: Task }) {
 
   return (
     <div className={`task-item ${completed ? 'completed' : ''}`}>
-      <p className="task-item__author">
+      <div className="task-item__author">
         <b className="task-item__authors-name">{username}:</b>
         <span className="task-item__authors-email">{email}</span>
-      </p>
+      </div>
       <p className="task-item__description">{description}</p>
     </div>
   )

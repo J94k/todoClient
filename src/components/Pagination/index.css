@@ -13,10 +13,15 @@
 .pagination__item button {
   padding: 0.4rem 0.8rem;
   font-size: 1.1rem;
-  background-color: transparent;
+  border-radius: 0.3rem;
   border: 1px solid rgb(215, 215, 215);
+  background-color: transparent;
 }
 
-.pagination__item button:hover {
-  background-color: rgb(237, 237, 237);
+.pagination__item.active button {
+  background-color: rgb(231, 231, 231);
+}
+
+.pagination__item:not(.active) button:hover {
+  background-color: rgb(233, 233, 233);
 }

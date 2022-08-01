@@ -8,3 +8,6 @@ export const setSort = createAction<{ type: string }>('SET_SORT')
 export const updateUnsavedTask = createAction<null | Task>(
   'UPDATE_UNSAVED_TASK'
 )
+export const updateUnsavedTaskPart = createAction<{ key: string; value: any }>(
+  'UPDATE_UNSAVED_TASK_PART'
+)

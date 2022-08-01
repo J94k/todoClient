@@ -9,11 +9,17 @@ import Pagination from '../../components/Pagination'
 
 const TASKS_BY_PAGE = 3
 
+const calculatePagesAmount = (listLength: any[]) =>
+  listLength.length ? Math.ceil(listLength.length / TASKS_BY_PAGE) : 0
+
 export default function Home() {
   const taskList = useSelector((state: State) => state.taskList)
-  const [pagesAmount] = useState(
-    taskList.length ? Math.ceil(taskList.length / TASKS_BY_PAGE) : 0
-  )
+  const [pagesAmount, setPagesAmount] = useState(calculatePagesAmount(taskList))
+
+  useEffect(() => {
+    setPagesAmount(calculatePagesAmount(taskList))
+  }, [taskList])
+
   const [currentPage, setCurrentPage] = useState(1)
   const [indexOfFirstTask, setIndexOfFirstTask] = useState(1)
   const [indexOfLastTask, setIndexOfLastTask] = useState(TASKS_BY_PAGE)
@@ -43,10 +49,14 @@ export default function Home() {
       <SortForm />
       <TodoForm />
 
-      {renderedTasks || <p>No any tasks</p>}
+      {renderedTasks?.length ? renderedTasks : <p>No any tasks</p>}
 
       {pagesAmount > 1 && (
-        <Pagination pagesAmount={pagesAmount} onSelect={setCurrentPage} />
+        <Pagination
+          pagesAmount={pagesAmount}
+          currentPage={currentPage}
+          onSelect={setCurrentPage}
+        />
       )}
     </section>
   )

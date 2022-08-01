@@ -5,6 +5,7 @@ import {
   removeTask,
   setSort,
   updateUnsavedTask,
+  updateUnsavedTaskPart,
 } from './actions'
 import { Task } from './types'
 
@@ -14,52 +15,25 @@ export const isAdminReducer = createReducer<boolean>(false, (builder) => {
   })
 })
 
-// @todo remove template tasks
-const tasks = [
-  {
-    id: 1,
-    username: 'Bob',
-    email: 'abc@example.com',
-    description: 'Lorem ipsum dolor sit amet, consectetur adip',
-    completed: false,
-  },
-  {
-    id: 2,
-    username: 'Alice',
-    email: 'cba@example.com',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adip Lorem ipsum dolor sit amet, consectetur adip',
-    completed: false,
-  },
-  {
-    id: 3,
-    username: 'Bob',
-    email: 'abc@example.com',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adip consectetur adip',
-    completed: true,
-  },
-  {
-    id: 4,
-    username: 'Alice',
-    email: 'cba@example.com',
-    description: 'Lorem ipsum dolor sit amet',
-    completed: true,
-  },
-]
+const taskListInitState: Task[] = []
 
-export const taskListReducer = createReducer<Task[]>(tasks, (builder) => {
-  builder
-    .addCase(addTask, (state, action) => {
-      state.push(action.payload)
-    })
-    .addCase(removeTask, (state, action) => {
-      state.filter(({ id }) => id !== action.payload.id)
-    })
-})
+export const taskListReducer = createReducer<Task[]>(
+  taskListInitState,
+  (builder) => {
+    builder
+      .addCase(addTask, (state, action) => {
+        state.push(action.payload)
+      })
+      .addCase(removeTask, (state, action) => {
+        state.filter(({ id }) => id !== action.payload.id)
+      })
+  }
+)
+
+const sortInitState = { type: '' }
 
 export const sortReducer = createReducer<{ type: string }>(
-  { type: '' },
+  sortInitState,
   (builder) => {
     builder.addCase(setSort, (state, action) => {
       const { type } = action.payload
@@ -69,28 +43,29 @@ export const sortReducer = createReducer<{ type: string }>(
   }
 )
 
+const unsavedTaskInitState = null
+
 export const unsavedTaskReducer = createReducer<null | Task>(
-  null,
+  unsavedTaskInitState,
   (builder) => {
     builder.addCase(updateUnsavedTask, (state, action) => {
-      if (action.payload !== null) {
-        const {
-          id,
-          username,
-          email,
-          description,
-          completed = false,
-        } = action.payload
+      return action.payload
+    })
+    builder.addCase(updateUnsavedTaskPart, (state, action) => {
+      const { key, value } = action.payload
 
+      if (state === null) {
         state = {
-          id,
-          username,
-          email,
-          description,
-          completed,
+          username: '',
+          email: '',
+          description: '',
+          completed: false,
         }
-      } else {
-        state = null
+      }
+
+      return {
+        ...state,
+        [key]: value,
       }
     })
   }
