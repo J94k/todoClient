@@ -23,7 +23,7 @@ export default function TodoForm() {
   const onUsernameChange = (event: BaseSyntheticEvent) => {
     dispatch(
       updateUnsavedTaskPart({
-        key: 'username',
+        key: 'name',
         value: event.target.value,
       })
     )

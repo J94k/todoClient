@@ -32,14 +32,15 @@ export const saveTask = createAsyncThunk(
   'SAVE_TASK',
   async (task: Task): Promise<Task | Error> => {
     try {
-      const result = await fetch(ENDPOINT.saveTask, {
+      const { data } = await fetch(ENDPOINT.saveTask, {
         method: 'POST',
         body: JSON.stringify(task),
+        headers: {
+          'Content-Type': 'application/json',
+        },
       }).then((res) => res.json())
 
-      console.log('🚀 ~ file: actions.ts ~ line 38 ~ result', result)
-
-      return task
+      return data
     } catch (error) {
       console.error(error)
       throw error

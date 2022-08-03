@@ -20,7 +20,16 @@ export const isAdminReducer = createReducer<boolean>(false, (builder) =>
 )
 
 const taskListInitState: TaskList = {
-  unsaved: null,
+  unsaved:
+    // @todo remove this template
+    process.env.NODE_ENV === 'development'
+      ? {
+          name: 'User1',
+          email: 'user1@example.com',
+          description: 'Bla bla foo bar task',
+          done: false,
+        }
+      : null,
   list: [],
 }
 
