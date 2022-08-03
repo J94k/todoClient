@@ -42,7 +42,7 @@ export default function TodoForm() {
     dispatch(
       updateUnsavedTaskPart({
         key: 'description',
-        value: event.target.value,
+        value: encodeURIComponent(event.target.value),
       })
     )
   }

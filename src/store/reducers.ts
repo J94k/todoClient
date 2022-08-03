@@ -69,7 +69,7 @@ export const taskListReducer = createReducer<TaskList>(
         }
       })
       .addCase(saveTask.fulfilled, (state, action) => {
-        if (!(action.payload instanceof Error)) {
+        if (action.payload && !(action.payload instanceof Error)) {
           state.list.push(action.payload)
         }
       })
