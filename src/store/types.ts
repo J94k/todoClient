@@ -1,9 +1,10 @@
 export interface Task {
   id?: number
-  username: string
-  email: string
+  client_id?: number
   description: string
-  completed: boolean
+  done: false
+  name: string
+  email: string
 }
 
 export interface TaskList {

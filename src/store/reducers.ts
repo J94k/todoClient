@@ -9,6 +9,7 @@ import {
   saveTask,
   addNotification,
   removeNotification,
+  fetchTasks,
 } from './actions'
 import { TaskList, Notification } from './types'
 
@@ -27,6 +28,11 @@ export const taskListReducer = createReducer<TaskList>(
   taskListInitState,
   (builder) =>
     builder
+      .addCase(fetchTasks.fulfilled, (state, action) => {
+        if (!(action.payload instanceof Error)) {
+          state.list = action.payload
+        }
+      })
       .addCase(addTask, (state, action) => {
         state.list.push(action.payload)
       })
@@ -41,10 +47,10 @@ export const taskListReducer = createReducer<TaskList>(
 
         if (state.unsaved === null) {
           state.unsaved = {
-            username: '',
+            name: '',
             email: '',
             description: '',
-            completed: false,
+            done: false,
           }
         }
 

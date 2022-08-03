@@ -7,7 +7,7 @@ import {
 } from './reducers'
 import { State } from './types'
 
-export default configureStore<State>({
+const store = configureStore<State>({
   reducer: {
     isAdmin: isAdminReducer,
     sort: sortReducer,
@@ -15,3 +15,8 @@ export default configureStore<State>({
     notifications: notificationsReducer,
   },
 })
+
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch
+
+export default store

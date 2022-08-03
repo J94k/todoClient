@@ -6,16 +6,16 @@ import {
 } from '../constants'
 
 export function isTaskDataValid({
-  username,
+  name,
   email,
   description,
 }: {
-  username: string
+  name: string
   email: string
   description: string
 }) {
   return Boolean(
-    username.match(USERNAME_REGEXP) &&
+    name.match(USERNAME_REGEXP) &&
       email.match(EMAIL_REGEXP) &&
       description.match(TASK_DESCRIPTION_REGEXP)
   )
