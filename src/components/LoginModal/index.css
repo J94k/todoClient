@@ -1,5 +1,6 @@
 .login-modal__container {
   max-width: 35rem;
+  margin: 0 auto;
   padding: 1rem;
   border-radius: 0.3rem;
   border: 1px solid rgb(215, 215, 215);

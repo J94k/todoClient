@@ -12,7 +12,9 @@ import { isTaskDataValid, preventReload } from '../../utils'
 
 export default function TodoForm() {
   const dispatch = useAppDispatch()
-  const notifications = useAppSelector((state: State) => state.notifications)
+  const newNotificationId = useAppSelector(
+    (state: State) => state.notifications.length
+  )
   const unsavedTask = useAppSelector((state: State) => state.tasks.unsaved)
   const [isValidData, setIsValidData] = useState(true)
 
@@ -67,7 +69,7 @@ export default function TodoForm() {
 
       dispatch(
         addNotification({
-          id: notifications.length,
+          id: newNotificationId,
           title: notification.title,
           description: notification.description,
         })

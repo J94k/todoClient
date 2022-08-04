@@ -37,6 +37,7 @@ export interface LoginForm {
 }
 
 export interface State {
+  userIsLoggedIn: boolean
   loginForm: LoginForm
   tasks: TaskList
   notifications: Notification[]

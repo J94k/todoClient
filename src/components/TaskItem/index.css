@@ -20,12 +20,13 @@
   opacity: 0.5;
 }
 
-.task-item__description {
-  margin: 0.8rem 0 0;
+.task-item__changable-description {
+  width: 99%;
+  resize: vertical;
 }
 
-.task-item__separator {
-  opacity: 0.4;
+.task-item__description {
+  margin: 0.8rem 0 0;
 }
 
 .task-item__labels {

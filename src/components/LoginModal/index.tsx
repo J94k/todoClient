@@ -2,7 +2,7 @@ import { BaseSyntheticEvent, useState } from 'react'
 import './index.css'
 import Modal from '../Modal'
 import { State } from '../../store/types'
-import { updateLoginFormPart, logIn } from '../../store/actions'
+import { updateLoginFormPart, logIn, setIsLoggedIn } from '../../store/actions'
 import { useAppDispatch, useAppSelector } from '../../hooks'
 import { isValidLoginFormData, preventReload } from '../../utils'
 
@@ -39,6 +39,9 @@ export default function LoginModal({ onClose }: { onClose: () => void }) {
     dispatch(logIn(loginForm)).then(({ payload }) => {
       if (!payload.success) {
         return setErrorNotice('Wrong credentials')
+      } else {
+        onClose()
+        dispatch(setIsLoggedIn(true))
       }
     })
   }

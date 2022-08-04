@@ -1,8 +1,9 @@
 import { createAction, createAsyncThunk } from '@reduxjs/toolkit'
 import { Task, Notification, Sort, LoginForm } from './types'
-import { ENDPOINT } from '../constants'
+import { ENDPOINT, JTW_STORAGE_KEY } from '../constants'
 import { stringToSha512 } from '../utils'
 
+export const setIsLoggedIn = createAction<boolean>('SET_IS_LOGGED_IN')
 export const updateLoginFormPart = createAction<{ key: string; value: any }>(
   'UPDATE_LOGIN_FORM_PART'
 )
@@ -22,7 +23,9 @@ export const logIn = createAsyncThunk(
         },
       }).then((res) => res.json())
 
-      console.log('🚀 ~ file: actions.ts ~ line 15 ~ data', data)
+      if (data.success && data.token) {
+        localStorage.setItem(JTW_STORAGE_KEY, data.token)
+      }
 
       return data
     } catch (error) {
@@ -65,6 +68,31 @@ export const saveTask = createAsyncThunk(
         method: 'POST',
         body: JSON.stringify(task),
         headers: {
+          'Content-Type': 'application/json',
+        },
+      }).then((res) => res.json())
+
+      return data
+    } catch (error) {
+      console.error(error)
+      throw error
+    }
+  }
+)
+
+export const updateTask = createAsyncThunk(
+  'UPDATE_TASK',
+  async (task: Task): Promise<Task | Error> => {
+    try {
+      const token = localStorage.getItem(JTW_STORAGE_KEY)
+
+      if (!token) throw new Error('Does not have JWT token')
+
+      const { data } = await fetch(`${ENDPOINT.updateTask}/${task.id}`, {
+        method: 'PATCH',
+        body: JSON.stringify(task),
+        headers: {
+          Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
       }).then((res) => res.json())

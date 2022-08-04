@@ -1,5 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit'
 import {
+  setIsLoggedIn,
   updateLoginFormPart,
   addTask,
   removeTask,
@@ -13,6 +14,13 @@ import {
 } from './actions'
 import { TaskList, Notification, Sort, LoginForm } from './types'
 import { sortByType } from '../utils'
+
+const userLoginInitState = false
+
+export const userIsLoggedInReducer = createReducer(
+  userLoginInitState,
+  (builder) => builder.addCase(setIsLoggedIn, (_, action) => action.payload)
+)
 
 const loginFormInitState: LoginForm = {
   username: '',
