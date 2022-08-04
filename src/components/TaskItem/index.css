@@ -28,6 +28,7 @@
 
 .task-item__author {
   display: flex;
+  flex-wrap: wrap;
   margin-bottom: 0.3rem;
 }
 

@@ -10,7 +10,9 @@ export default function TaskItem({ task }: { task: Task }) {
         <b className="task-item__authors-name">{name}:</b>
         <span className="task-item__authors-email">{email}</span>
       </div>
-      <p className="task-item__description">{description}</p>
+      <p className="task-item__description">
+        {decodeURIComponent(description)}
+      </p>
     </div>
   )
 }
