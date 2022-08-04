@@ -30,6 +30,7 @@
 }
 
 .task-item__labels {
+  margin-top: 0.5rem;
   display: flex;
   flex-wrap: wrap;
   font-size: 1.2rem;

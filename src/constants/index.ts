@@ -10,8 +10,8 @@ export const ENDPOINT = {
   auth: `${REACT_APP_API_ENDPOINT}/users/auth`,
   tasks: `${REACT_APP_API_ENDPOINT}/tasks/all`,
   saveTask: `${REACT_APP_API_ENDPOINT}/tasks/new`,
-  updateTask: `${REACT_APP_API_ENDPOINT}/tasks/`,
-  deleteTask: `${REACT_APP_API_ENDPOINT}/tasks/`,
+  updateTask: `${REACT_APP_API_ENDPOINT}/tasks`,
+  deleteTask: `${REACT_APP_API_ENDPOINT}/tasks`,
 }
 
 export const JTW_STORAGE_KEY = 'JWT'
