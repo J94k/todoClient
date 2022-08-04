@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import './index.css'
 import { State } from '../../store/types'
 import SortForm from '../../components/SortForm'
 import TodoForm from '../../components/TodoForm'
@@ -13,7 +12,11 @@ const calculatePagesAmount = (listLength: any[]) =>
   listLength.length ? Math.ceil(listLength.length / TASKS_BY_PAGE) : 0
 
 export default function Home() {
-  const tasksList = useSelector((state: State) => state.tasks.list)
+  const {
+    userIsLoggedIn,
+    tasks: { list: tasksList },
+  } = useSelector((state: State) => state)
+
   const [pagesAmount, setPagesAmount] = useState(
     calculatePagesAmount(tasksList)
   )
@@ -42,14 +45,16 @@ export default function Home() {
     setRenderedTasks(
       tasksList
         .slice(indexOfFirstTask, indexOfLastTask)
-        .map((task) => <TaskItem task={task} key={task.id} />)
+        .map((task) => (
+          <TaskItem task={task} key={task.id} allowChanges={userIsLoggedIn} />
+        ))
     )
-  }, [indexOfFirstTask, indexOfLastTask, tasksList])
+  }, [indexOfFirstTask, indexOfLastTask, tasksList, userIsLoggedIn])
 
   return (
     <section className="home">
-      <SortForm />
       <TodoForm />
+      <SortForm />
 
       {renderedTasks?.length ? renderedTasks : <p>No any tasks</p>}
 

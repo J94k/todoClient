@@ -1,6 +1,6 @@
 import { BaseSyntheticEvent, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 import './index.css'
+import { useAppDispatch, useAppSelector } from '../../hooks'
 import {
   updateUnsavedTaskPart,
   saveTask,
@@ -8,14 +8,14 @@ import {
 } from '../../store/actions'
 import { State } from '../../store/types'
 import Accordion from '../Accordion'
-import { isTaskDataValid } from '../../utils'
-
-const preventReload = (event: BaseSyntheticEvent) => event.preventDefault()
+import { isTaskDataValid, preventReload } from '../../utils'
 
 export default function TodoForm() {
-  const dispatch = useDispatch()
-  const notifications = useSelector((state: State) => state.notifications)
-  const unsavedTask = useSelector((state: State) => state.tasks.unsaved)
+  const dispatch = useAppDispatch()
+  const newNotificationId = useAppSelector(
+    (state: State) => state.notifications.length
+  )
+  const unsavedTask = useAppSelector((state: State) => state.tasks.unsaved)
   const [isValidData, setIsValidData] = useState(true)
 
   const dropValidationNotice = () => setIsValidData(true)
@@ -23,7 +23,7 @@ export default function TodoForm() {
   const onUsernameChange = (event: BaseSyntheticEvent) => {
     dispatch(
       updateUnsavedTaskPart({
-        key: 'username',
+        key: 'name',
         value: event.target.value,
       })
     )
@@ -42,7 +42,7 @@ export default function TodoForm() {
     dispatch(
       updateUnsavedTaskPart({
         key: 'description',
-        value: event.target.value,
+        value: encodeURIComponent(event.target.value),
       })
     )
   }
@@ -52,32 +52,28 @@ export default function TodoForm() {
       return setIsValidData(false)
     }
 
-    //@remind after complete a server side remove id from this place
     dispatch(
-      // @ts-ignore @audit-issue
       saveTask({
         ...unsavedTask,
-        completed: false,
-        id: Math.floor(Math.random() * 1_000_000_000),
+        done: false,
       })
     ).then((data: any) => {
-      console.log('🚀 ~ file: index.tsx ~ line 64 ~ ).then ~ data', data)
+      const notification = { title: '', description: '' }
+
       if (data.error) {
-        dispatch(
-          addNotification({
-            id: notifications.length,
-            title: data.error.name,
-            description: data.error.message,
-          })
-        )
+        notification.title = data.error.name
+        notification.description = data.error.message
       } else {
-        dispatch(
-          addNotification({
-            id: notifications.length,
-            title: 'Task was saved',
-          })
-        )
+        notification.title = 'Task was saved'
       }
+
+      dispatch(
+        addNotification({
+          id: newNotificationId,
+          title: notification.title,
+          description: notification.description,
+        })
+      )
     })
   }
 
@@ -93,7 +89,7 @@ export default function TodoForm() {
             className="todo-container__field"
             onChange={onUsernameChange}
             type="text"
-            defaultValue={unsavedTask?.username}
+            defaultValue={unsavedTask?.name}
             placeholder="username"
             required
           />

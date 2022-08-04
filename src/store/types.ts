@@ -1,14 +1,28 @@
 export interface Task {
   id?: number
-  username: string
-  email: string
+  client_id?: number
   description: string
-  completed: boolean
+  name: string
+  email: string
+  done: boolean
+  edited: boolean
+}
+
+export enum Sort {
+  idStart,
+  idEnd,
+  nameStart,
+  nameEnd,
+  emailStart,
+  emailEnd,
+  statusStart,
+  statusEnd,
 }
 
 export interface TaskList {
   unsaved: null | Task
   list: Task[]
+  sort: Sort
 }
 
 export interface Notification {
@@ -17,9 +31,14 @@ export interface Notification {
   description?: string
 }
 
+export interface LoginForm {
+  username: string
+  password: string
+}
+
 export interface State {
-  isAdmin: boolean
-  sort: { type: string }
+  userIsLoggedIn: boolean
+  loginForm: LoginForm
   tasks: TaskList
   notifications: Notification[]
 }

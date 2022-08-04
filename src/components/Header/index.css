@@ -1,9 +1,9 @@
 .header {
-  padding: 0.8rem 25%;
+  padding: 0.8rem var(--global-side-padding);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid rgb(211, 211, 211);
+  border-bottom: 1px solid rgb(215, 215, 215);
 }
 
 .header__title {
@@ -11,12 +11,13 @@
   margin: 0;
 }
 
-.header__login-button {
+.header__account-button {
   padding: 0.3rem 0.6rem;
   border: 1px solid rgb(215, 215, 215);
+  border-radius: 0.3rem;
   background-color: transparent;
 }
 
-.header__login-button:hover {
+.header__account-button:hover {
   background-color: rgb(237, 237, 237);
 }

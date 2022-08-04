@@ -1,6 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit'
 import {
-  setIsAdmin,
+  setIsLoggedIn,
+  updateLoginFormPart,
   addTask,
   removeTask,
   setSort,
@@ -9,29 +10,74 @@ import {
   saveTask,
   addNotification,
   removeNotification,
+  fetchTasks,
 } from './actions'
-import { TaskList, Notification } from './types'
+import { TaskList, Notification, Sort, LoginForm } from './types'
+import { sortByType } from '../utils'
 
-export const isAdminReducer = createReducer<boolean>(false, (builder) =>
-  builder.addCase(setIsAdmin, (state, action) => {
-    state = action.payload
-  })
+const userLoginInitState = false
+
+export const userIsLoggedInReducer = createReducer(
+  userLoginInitState,
+  (builder) => builder.addCase(setIsLoggedIn, (_, action) => action.payload)
+)
+
+const loginFormInitState: LoginForm = {
+  username: '',
+  password: '',
+}
+
+export const loginFormReducer = createReducer<LoginForm>(
+  loginFormInitState,
+  (builder) =>
+    builder.addCase(updateLoginFormPart, (state, action) => {
+      const { key, value } = action.payload
+
+      state[key as keyof typeof loginFormInitState] = value
+    })
 )
 
 const taskListInitState: TaskList = {
-  unsaved: null,
+  unsaved:
+    // @todo remove this template
+    process.env.NODE_ENV === 'development'
+      ? {
+          name: 'User1',
+          email: 'user1@example.com',
+          description: 'Bla bla foo bar task',
+          done: false,
+          edited: false,
+        }
+      : null,
   list: [],
+  sort: Sort.idStart,
 }
 
 export const taskListReducer = createReducer<TaskList>(
   taskListInitState,
   (builder) =>
     builder
+      .addCase(fetchTasks.fulfilled, (state, action) => {
+        if (!(action.payload instanceof Error)) {
+          state.list = action.payload
+        }
+      })
+      .addCase(setSort, (state, action) => {
+        const { type } = action.payload
+
+        state.list = sortByType(state.list, type)
+        state.sort = type
+      })
       .addCase(addTask, (state, action) => {
         state.list.push(action.payload)
       })
       .addCase(removeTask, (state, action) => {
         state.list.filter(({ id }) => id !== action.payload.id)
+      })
+      .addCase(saveTask.fulfilled, (state, action) => {
+        if (action.payload && !(action.payload instanceof Error)) {
+          state.list.push(action.payload)
+        }
       })
       .addCase(updateUnsavedTask, (state, action) => {
         state.unsaved = action.payload
@@ -41,10 +87,11 @@ export const taskListReducer = createReducer<TaskList>(
 
         if (state.unsaved === null) {
           state.unsaved = {
-            username: '',
+            name: '',
             email: '',
             description: '',
-            completed: false,
+            done: false,
+            edited: false,
           }
         }
 
@@ -53,23 +100,6 @@ export const taskListReducer = createReducer<TaskList>(
           [key]: value,
         }
       })
-      .addCase(saveTask.fulfilled, (state, action) => {
-        if (!(action.payload instanceof Error)) {
-          state.list.push(action.payload)
-        }
-      })
-)
-
-const sortInitState = { type: '' }
-
-export const sortReducer = createReducer<{ type: string }>(
-  sortInitState,
-  (builder) =>
-    builder.addCase(setSort, (state, action) => {
-      const { type } = action.payload
-
-      state.type = type
-    })
 )
 
 const notificationInitState: Notification[] = []

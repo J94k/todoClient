@@ -1,8 +1,9 @@
 .todo-container {
   margin: 0.6rem 0;
+  padding: 0.2rem;
   border-radius: 0.3rem;
-  box-shadow: 0 0 0.2rem rgb(206, 206, 206);
-  background-color: rgb(249, 249, 249);
+  box-shadow: 0 0 0.1rem rgb(137, 137, 137);
+  background-color: rgb(247, 247, 247);
 }
 
 .todo-container__title {
@@ -25,6 +26,5 @@
 
 .todo-container__notice {
   margin: 0.3rem 0 0.5rem;
-  font-size: 0.9rem;
-  color: rgb(255, 50, 50);
+  color: var(--error-color);
 }
