@@ -6,6 +6,21 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --brand-color: rgb(144, 5, 209);
+  --global-side-padding: 25%;
+}
+
+@media screen and (max-width: 1024px) {
+  body {
+    --global-side-padding: 15%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  body {
+    --global-side-padding: 5%;
+  }
 }
 
 code {

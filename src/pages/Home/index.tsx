@@ -48,8 +48,8 @@ export default function Home() {
 
   return (
     <section className="home">
-      <SortForm />
       <TodoForm />
+      <SortForm />
 
       {renderedTasks?.length ? renderedTasks : <p>No any tasks</p>}
 

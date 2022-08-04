@@ -7,19 +7,19 @@
 }
 
 .task-item.done {
-  border-color: rgb(144, 5, 209);
+  border-color: var(--brand-color);
 }
 
 .task-item.done::after {
   content: '✓';
-  font-size: 1.2rem;
+  font-size: 1.6rem;
   position: absolute;
   right: 1%;
   top: 8%;
-  width: 1.3rem;
-  height: 1.3rem;
+  width: 1.6rem;
+  height: 1.6rem;
   border-radius: 50%;
-  background-color: rgb(144, 5, 209);
+  background-color: var(--brand-color);
   display: flex;
   align-items: center;
   justify-content: center;

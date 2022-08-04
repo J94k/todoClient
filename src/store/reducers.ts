@@ -11,7 +11,8 @@ import {
   removeNotification,
   fetchTasks,
 } from './actions'
-import { TaskList, Notification } from './types'
+import { TaskList, Notification, Sort } from './types'
+import { sortByType } from '../utils'
 
 export const isAdminReducer = createReducer<boolean>(false, (builder) =>
   builder.addCase(setIsAdmin, (state, action) => {
@@ -31,6 +32,7 @@ const taskListInitState: TaskList = {
         }
       : null,
   list: [],
+  sort: Sort.idStart,
 }
 
 export const taskListReducer = createReducer<TaskList>(
@@ -42,11 +44,22 @@ export const taskListReducer = createReducer<TaskList>(
           state.list = action.payload
         }
       })
+      .addCase(setSort, (state, action) => {
+        const { type } = action.payload
+
+        state.list = sortByType(state.list, type)
+        state.sort = type
+      })
       .addCase(addTask, (state, action) => {
         state.list.push(action.payload)
       })
       .addCase(removeTask, (state, action) => {
         state.list.filter(({ id }) => id !== action.payload.id)
+      })
+      .addCase(saveTask.fulfilled, (state, action) => {
+        if (action.payload && !(action.payload instanceof Error)) {
+          state.list.push(action.payload)
+        }
       })
       .addCase(updateUnsavedTask, (state, action) => {
         state.unsaved = action.payload
@@ -68,23 +81,6 @@ export const taskListReducer = createReducer<TaskList>(
           [key]: value,
         }
       })
-      .addCase(saveTask.fulfilled, (state, action) => {
-        if (action.payload && !(action.payload instanceof Error)) {
-          state.list.push(action.payload)
-        }
-      })
-)
-
-const sortInitState = { type: '' }
-
-export const sortReducer = createReducer<{ type: string }>(
-  sortInitState,
-  (builder) =>
-    builder.addCase(setSort, (state, action) => {
-      const { type } = action.payload
-
-      state.type = type
-    })
 )
 
 const notificationInitState: Notification[] = []

@@ -1,11 +1,11 @@
 import { createAction, createAsyncThunk } from '@reduxjs/toolkit'
-import { Task, Notification } from './types'
+import { Task, Notification, Sort } from './types'
 import { ENDPOINT } from '../constants'
 
 export const setIsAdmin = createAction<boolean>('SET_IS_ADMIN')
 export const addTask = createAction<Task>('ADD_TASK')
 export const removeTask = createAction<{ id: number }>('REMOVE_TASK')
-export const setSort = createAction<{ type: string }>('SET_SORT')
+export const setSort = createAction<{ type: Sort }>('SET_SORT')
 
 export const updateUnsavedTask = createAction<null | Task>(
   'UPDATE_UNSAVED_TASK'

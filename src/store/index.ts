@@ -2,7 +2,6 @@ import { configureStore } from '@reduxjs/toolkit'
 import {
   isAdminReducer,
   taskListReducer,
-  sortReducer,
   notificationsReducer,
 } from './reducers'
 import { State } from './types'
@@ -10,7 +9,6 @@ import { State } from './types'
 const store = configureStore<State>({
   reducer: {
     isAdmin: isAdminReducer,
-    sort: sortReducer,
     tasks: taskListReducer,
     notifications: notificationsReducer,
   },

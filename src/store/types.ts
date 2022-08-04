@@ -7,9 +7,21 @@ export interface Task {
   email: string
 }
 
+export enum Sort {
+  idStart,
+  idEnd,
+  nameStart,
+  nameEnd,
+  emailStart,
+  emailEnd,
+  statusStart,
+  statusEnd,
+}
+
 export interface TaskList {
   unsaved: null | Task
   list: Task[]
+  sort: Sort
 }
 
 export interface Notification {
@@ -20,7 +32,6 @@ export interface Notification {
 
 export interface State {
   isAdmin: boolean
-  sort: { type: string }
   tasks: TaskList
   notifications: Notification[]
 }
