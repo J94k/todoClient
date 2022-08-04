@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit'
 import {
-  setIsAdmin,
+  updateLoginFormPart,
   addTask,
   removeTask,
   setSort,
@@ -11,13 +11,22 @@ import {
   removeNotification,
   fetchTasks,
 } from './actions'
-import { TaskList, Notification, Sort } from './types'
+import { TaskList, Notification, Sort, LoginForm } from './types'
 import { sortByType } from '../utils'
 
-export const isAdminReducer = createReducer<boolean>(false, (builder) =>
-  builder.addCase(setIsAdmin, (state, action) => {
-    state = action.payload
-  })
+const loginFormInitState: LoginForm = {
+  username: '',
+  password: '',
+}
+
+export const loginFormReducer = createReducer<LoginForm>(
+  loginFormInitState,
+  (builder) =>
+    builder.addCase(updateLoginFormPart, (state, action) => {
+      const { key, value } = action.payload
+
+      state[key as keyof typeof loginFormInitState] = value
+    })
 )
 
 const taskListInitState: TaskList = {
@@ -29,6 +38,7 @@ const taskListInitState: TaskList = {
           email: 'user1@example.com',
           description: 'Bla bla foo bar task',
           done: false,
+          edited: false,
         }
       : null,
   list: [],
@@ -73,6 +83,7 @@ export const taskListReducer = createReducer<TaskList>(
             email: '',
             description: '',
             done: false,
+            edited: false,
           }
         }
 

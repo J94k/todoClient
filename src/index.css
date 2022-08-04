@@ -8,6 +8,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
 
   --brand-color: rgb(144, 5, 209);
+  --notice-color: rgb(7, 93, 232);
+  --error-color: rgb(255, 50, 50);
   --global-side-padding: 25%;
 }
 

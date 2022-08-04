@@ -26,5 +26,5 @@
 
 .todo-container__notice {
   margin: 0.3rem 0 0.5rem;
-  color: rgb(255, 50, 50);
+  color: var(--error-color);
 }

@@ -1,8 +1,37 @@
 import { createAction, createAsyncThunk } from '@reduxjs/toolkit'
-import { Task, Notification, Sort } from './types'
+import { Task, Notification, Sort, LoginForm } from './types'
 import { ENDPOINT } from '../constants'
+import { stringToSha512 } from '../utils'
 
-export const setIsAdmin = createAction<boolean>('SET_IS_ADMIN')
+export const updateLoginFormPart = createAction<{ key: string; value: any }>(
+  'UPDATE_LOGIN_FORM_PART'
+)
+export const logIn = createAsyncThunk(
+  'LOG_IN',
+  async ({ username, password }: LoginForm) => {
+    try {
+      const hash = await stringToSha512(password)
+      const { data } = await fetch(ENDPOINT.login, {
+        method: 'POST',
+        body: JSON.stringify({
+          username,
+          hash,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }).then((res) => res.json())
+
+      console.log('🚀 ~ file: actions.ts ~ line 15 ~ data', data)
+
+      return data
+    } catch (error) {
+      console.error(error)
+      throw error
+    }
+  }
+)
+
 export const addTask = createAction<Task>('ADD_TASK')
 export const removeTask = createAction<{ id: number }>('REMOVE_TASK')
 export const setSort = createAction<{ type: Sort }>('SET_SORT')

@@ -8,9 +8,7 @@ import {
 } from '../../store/actions'
 import { State } from '../../store/types'
 import Accordion from '../Accordion'
-import { isTaskDataValid } from '../../utils'
-
-const preventReload = (event: BaseSyntheticEvent) => event.preventDefault()
+import { isTaskDataValid, preventReload } from '../../utils'
 
 export default function TodoForm() {
   const dispatch = useAppDispatch()

@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import {
-  isAdminReducer,
+  loginFormReducer,
   taskListReducer,
   notificationsReducer,
 } from './reducers'
@@ -8,7 +8,7 @@ import { State } from './types'
 
 const store = configureStore<State>({
   reducer: {
-    isAdmin: isAdminReducer,
+    loginForm: loginFormReducer,
     tasks: taskListReducer,
     notifications: notificationsReducer,
   },
