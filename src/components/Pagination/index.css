@@ -6,10 +6,6 @@
   list-style: none;
 }
 
-.pagination__item {
-  margin: 0.1rem 0;
-}
-
 .pagination__item:not(:last-child) {
   margin-right: 0.3rem;
 }
@@ -23,8 +19,7 @@
 }
 
 .pagination__item.active button {
-  background-color: rgb(238, 238, 238);
-  border-color: var(--brand-color);
+  background-color: rgb(231, 231, 231);
 }
 
 .pagination__item:not(.active) button:hover {

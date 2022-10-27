@@ -1,4 +1,4 @@
 .app__main {
   min-height: 30rem;
-  padding: 0.8rem var(--global-side-padding);
+  padding: 0.8rem 25%;
 }

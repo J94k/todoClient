@@ -1,22 +1,17 @@
 import { configureStore } from '@reduxjs/toolkit'
 import {
-  userIsLoggedInReducer,
-  loginFormReducer,
+  isAdminReducer,
   taskListReducer,
+  sortReducer,
   notificationsReducer,
 } from './reducers'
 import { State } from './types'
 
-const store = configureStore<State>({
+export default configureStore<State>({
   reducer: {
-    userIsLoggedIn: userIsLoggedInReducer,
-    loginForm: loginFormReducer,
+    isAdmin: isAdminReducer,
+    sort: sortReducer,
     tasks: taskListReducer,
     notifications: notificationsReducer,
   },
 })
-
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
-
-export default store

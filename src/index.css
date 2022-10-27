@@ -1,40 +1,15 @@
 body {
-  font-size: 1.6rem;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  --brand-color: rgb(144, 5, 209);
-  --notice-color: rgb(7, 93, 232);
-  --error-color: rgb(255, 50, 50);
-  --global-side-padding: 25%;
-}
-
-@media screen and (max-width: 1024px) {
-  body {
-    --global-side-padding: 15%;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  body {
-    --global-side-padding: 5%;
-  }
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
-}
-
-input,
-textarea,
-button {
-  font-size: inherit;
-  font-family: inherit;
 }
 
 button,
